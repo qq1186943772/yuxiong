@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="User">
+	
+	<sql id="tableName">
+		sys_user
+	</sql>
+	
+	<sql id="field">
+		user_code,	
+		user_name,	
+		user_phone,	
+		user_emall,	
+		user_remark,	
+		login_name,
+		login_pass,
+		state
+	</sql>
+	
+	<sql id="fieldValue">
+		#{user_code},	
+		#{user_name},	
+		#{user_phone},	
+		#{user_emall},	
+		#{user_remark},	
+		#{login_name},
+		#{login_pass},
+		#{state}
+	</sql>
+	
+	<!-- 获取用户列表   -->
+	<select id="findById" parameterType="java.util.Map" resultType="java.util.Map">
+		select 
+			<include refid="field"></include>
+		from
+			<include refid="tableName"></include>
+		<where>
+			<if test=" user_code != null and user_code !='' "> user_code like CONCAT('%',#{user_code},'%') </if>  
+			<if test=" user_name != null and user_name !='' "> user_name like CONCAT('%',#{user_name},'%') </if>
+			<if test=" user_phone != null and user_phone !='' "> user_phone like CONCAT('%',#{user_phone},'%') </if>
+		</where>
+	</select>
+	
+	<select id="userSave" parameterType="java.util.Map" >
+		insert into 
+			<include refid="tableName"></include>
+			(
+				<include refid="field"></include>
+			)
+			values(
+				<include refid="fieldValue"></include>
+			)
+	</select>
+	
+	<select id="userUpdate" parameterType="java.util.Map" >
+		update   <include refid="tableName"></include>
+			set user_code = #{user_code},
+			user_name = #{user_name},
+			user_phone = #{user_phone},
+			user_emall = #{user_emall},
+			user_remark = #{user_remark},
+			login_name = #{login_name},
+			login_pass = #{login_pass}
+		where user_code = #{user_code}
+	</select>
+	
+	<select id="userDelete" parameterType="String" >
+		delete from  <include refid="tableName"></include>
+		where user_code = #{id}
+	</select>
+	
+	<select id="userDeleteNum" parameterType="java.util.List" >
+		delete from  <include refid="tableName"></include>
+		where user_code in 
+		 <foreach collection="list" index="index" item="item"
+            open="(" separator="," close=")">
+            #{item}
+		</foreach>
+	</select>
+	
+</mapper>
