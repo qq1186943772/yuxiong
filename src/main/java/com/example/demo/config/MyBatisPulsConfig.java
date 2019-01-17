@@ -39,6 +39,7 @@ public class MyBatisPulsConfig {
 	private MybatisProperties properties;
 	
 	@Autowired
+	@SuppressWarnings("unused")
 	private ResourceLoader resourceLoader = new DefaultResourceLoader();
 	
 	@Autowired(required = false)
