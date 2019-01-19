@@ -14,6 +14,12 @@ spring:
       uris:
       - http://47.104.148.255:9300
       read-timeout: 5000    
+  rabbitmq:
+    host: 47.104.148.255
+    port: 5672
+    username: root
+    password: root
+    publisher-confirms: true
 
 server:
   port: 8080
@@ -26,8 +32,7 @@ server:
 mybatis:
   type-aliases-package: com.example.demo.entity
   mapper-locations: classpath:mapper/*.xml
-  
-  
+
         
      
         

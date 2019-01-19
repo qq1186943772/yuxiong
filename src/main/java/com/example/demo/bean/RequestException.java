@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
  * @author licoy.cn
  * @version 2017/11/18
  */
+@SuppressWarnings("serial")
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Builder

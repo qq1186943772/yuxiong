@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.subject.Subject;
@@ -15,15 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
 import com.example.demo.bean.JwtToken;
 import com.example.demo.bean.RequestException;
 import com.example.demo.bean.ResponseCode;
 import com.example.demo.bean.ResponseResult;
-import com.example.demo.entity.system.SysUser;
 import com.example.demo.service.DemoService;
-import com.example.demo.service.system.SysUserService;
 import com.example.demo.util.JwtUtil;
 
 import io.swagger.annotations.Api;
@@ -38,8 +32,6 @@ public class TestController {
 	@Autowired
 	DemoService<Map<String, Object>> demo; 
 
-	@Resource(name="sysUserService")
-	SysUserService sysUserService;
 	
 	@ResponseBody
 	@RequestMapping(value="/visitor/test",method=RequestMethod.GET)
@@ -61,15 +53,6 @@ public class TestController {
 	public List<Map<String,Object>> userLoad(){
 		Map<String, Object> map = new HashMap<String, Object>();
 		return demo.loadList("User.findById", map);
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping(value="/mybatisPlus/userPlus",method=RequestMethod.GET)
-	@ApiOperation(value = "加载用户信息")
-	public Page<SysUser> userPlus(int pageSize,int pageNo){
-		EntityWrapper<SysUser> wrapper = new EntityWrapper<>();
-		return sysUserService.selectPage(new Page<SysUser>(pageNo,pageSize),wrapper);
 	}
 	
 	@SuppressWarnings("rawtypes")
